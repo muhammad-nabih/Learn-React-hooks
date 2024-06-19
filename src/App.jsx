@@ -1,9 +1,9 @@
-import Ref from "./hooks/Ref/Ref";
+import Memo from "./hooks/Memo/Memo";
 
 function App() {
   return (
     <>
-      <Ref />
+      <Memo />
     </>
   );
 }

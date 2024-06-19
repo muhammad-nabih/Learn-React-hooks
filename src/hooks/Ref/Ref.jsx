@@ -1,12 +1,15 @@
+import React from "react";
 import { useRef } from "react";
 
-export default function Ref() {
+export const Ref = () => {
   const listRef = useRef([]);
+  const items = ["item1", "item2", "item3"];
+  const sections = ["section1", "section2", "section3"];
 
-  const handleScrollInto = (index) => {
+  const handleScroll = (index) => {
     listRef.current[index].scrollIntoView({ behavior: "smooth" });
   };
-
+  // Style For Component
   const sectionStyle = {
     border: "1px solid black",
     padding: "10px",
@@ -31,28 +34,34 @@ export default function Ref() {
   };
 
   return (
-    <div>
-      <nav style={{ display: "flex" }}>
-        {["item1", "item2", "item3"].map((item, index) => (
-          <li
+    <>
+      <nav>
+        <ul>
+          {items.map((item, index) => {
+            return (
+              <li
+                key={index}
+                style={itemsStyle}
+                onClick={() => handleScroll(index)}
+              >
+                {item}
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      {sections.map((section, index) => {
+        return (
+          <section
             key={index}
-            style={itemsStyle}
-            onClick={() => handleScrollInto(index)}
+            style={sectionStyle}
+            ref={(ele) => (listRef.current[index] = ele)}
           >
-            {item}
-          </li>
-        ))}
-      </nav>{" "}
-      <hr />
-      {["section1", "section2", "section3"].map((item, index) => (
-        <section
-          key={index}
-          style={sectionStyle}
-          ref={(el) => (listRef.current[index] = el)}
-        >
-          {item}
-        </section>
-      ))}
-    </div>
+            {section}
+          </section>
+        );
+      })}
+    </>
   );
-}
+};
